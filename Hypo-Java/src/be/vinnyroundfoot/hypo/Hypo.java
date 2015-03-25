@@ -34,6 +34,11 @@ public class Hypo {
      * @return {float} nombre arronditaux converti
      */    
     public static float convTx (float taux, int pOri, int pDest, int dec) {
+        
+        if (taux == 0) {
+            return 0;
+        }
+        
         if (pOri == pDest) {
             return taux;
         }else{
@@ -60,6 +65,10 @@ public class Hypo {
      */
     public static float vpm (float K0, int n, float t, int dec ) {
       
+        if (t == 0) {
+            return arrondi(K0 / n,2);
+        }
+        
         float num = K0 * t;
         float den =  new Double(1 - Math.pow(new Double(1+t), new Double(-n))).floatValue();
         
@@ -82,10 +91,15 @@ public class Hypo {
      * @return {float}      amortissement de la 1ere période
     */
     public static float princPer1 (float K0, int n, float t, int dec) {
+
+        if (t == 0) {
+            return arrondi(K0 / n, dec);
+        }
+        
         float num = K0 * t;
         float den =  new Double(Math.pow(new Double(1+t), new Double(n))-1).floatValue();
         
-         return arrondi(num / den,dec);
+        return arrondi(num / den,dec);
         
     };
     
@@ -106,6 +120,11 @@ public class Hypo {
      */
     public static float princPer(float K0, int n, float t, int p, int dec) {
         float A = princPer1(K0, n, t, dec);
+        
+        if (t==0) {
+            return A;
+        }
+        
         float Apn =  new Double(Math.pow(new Double(1+t), new Double(p - 1)) * A).floatValue();
         
         return arrondi(Apn,dec);
@@ -127,16 +146,13 @@ public class Hypo {
      * @return {float} amortissement de la période p
      */
     public static float princPerP (int n, float t, float apn1, int p1, int p2, int dec) {
+        
+        if (t == 0) {
+            return apn1;
+        } 
+        
         float apn2 = apn1 * new Double(Math.pow(new Double(1 + t), new Double(p2 - p1))).floatValue();
         return arrondi(apn2,dec);
     };
-  
-
-    
-    
-    
-
-            
-    
     
 }
