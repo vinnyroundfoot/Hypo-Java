@@ -31,7 +31,17 @@ public class Exemples {
         System.out.println(r);           
 
         r = Hypo.princPer(100000.0f, 240, .003274f, 1, 2);
-        System.out.println(r);          
+        System.out.println(r);   
+        
+        r = Hypo.cumulPrinc(100000.0f, 240, 0f, 1, 12, 2);
+        System.out.println(r);
+
+        r = Hypo.interetsPn(100000.0f, 240, 0f, 12, 2);
+        System.out.println(r);        
+
+        r = Hypo.cumulInt(100000.0f, 240, 0.003274f, 1, 12, 2);
+        System.out.println(r);        
+        
         
     }
     
