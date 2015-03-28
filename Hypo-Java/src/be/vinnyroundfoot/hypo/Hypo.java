@@ -12,6 +12,8 @@ package be.vinnyroundfoot.hypo;
  */
 public class Hypo {
 
+    
+
     public static float arrondi(float m, int dec) {
         float arr = new Double(Math.pow(10.0, dec+0.0)).floatValue();
 
@@ -19,7 +21,7 @@ public class Hypo {
         long m2 = new Double(m).longValue();
         double m3 = (m2 +0.0)/ new Float(arr).longValue();
         return new Double(m3).floatValue();
-       
+        
     }
 
     
@@ -64,7 +66,7 @@ public class Hypo {
     public static float vpm (float K0, int n, float t, int dec ) {
       
         if (t == 0) {
-            return arrondi(K0 / n, 2);
+            return arrondi(K0 / n,2);
         }
         
         float num = K0 * t;
@@ -152,97 +154,5 @@ public class Hypo {
         float apn2 = apn1 * new Double(Math.pow(new Double(1 + t), new Double(p2 - p1))).floatValue();
         return arrondi(apn2,dec);
     };
-
-    /**
-     * Calcul des amortissements cumulés de la période p1
-     * à la période p2 d'un emprunt souscrit pour n périodes à un taux t
-  
-     * @param K0 (float)  capital de départ 
-     * @param n {int} nombre de périodes
-     * @param t {float} taux d'intérêt pour la période
-     * @param p1 {int} période de début 
-     * @param p2 {int} période de fin
-     * @param dec {int} nombre de décimales dans le résultat (optionnel)
-     * @return {float} amortissements cumulés de la période p1 à p2
-     */
-    
-    public static float cumulPrinc(float K0, int n, float t, int p1, int p2, int dec) {
-        float m = vpm(K0, n, t, dec);
-        float sump = 0;
-        
-        
-        while (p1 <= p2) {
-            sump = sump + princPer(K0, n, t, p1, dec);
-            p1 = p1 + 1;
-        }
-        
-        return arrondi(sump, dec);
-        
-    }
-    
-    
-    /**
-     * Calcul de l'intérêt (ipn) de la période p
-     * d'un emprunt K0 souscrit pour n périodes à un taux t
-     * n pérodes à un taux t
-     *
-     *   ap = amortissement à la période p
-     *
-     *  ipn  = m - ap
-     *
-     * @param K0 {float} capital emprunté
-     * @param n {int)  nombre de périodes
-     * @param t {float} taux d'intérêt pour la période
-     * @param p {int} p période de calcul de l'amortissement
-     * @param dec {int} dec nombre de décimales dans le résultat (optionnel)
-     * @return {float} intérêts de la période p
-     */
-    public static float interetsPn(float K0, int n, float t, int p, int dec) {
-        
-        if (t == 0) {
-            return 0;
-        }
-        
-        float m = Hypo.vpm(K0, n, t, dec);
-        float a = Hypo.princPer(K0, n, t, p, dec);
-        
-        return arrondi(m - a, dec);
-    }
-    
-     /**
-     * Calcul des intérêts cumulés de la période p1
-     * à la période p2 d'un emprunt souscrit pour n périodes à un taux t
-  
-     * @param K0 (float)  capital de départ 
-     * @param n {int} nombre de périodes
-     * @param t {float} taux d'intérêt pour la période
-     * @param p1 {int} période de début 
-     * @param p2 {int} période de fin
-     * @param dec {int} nombre de décimales dans le résultat (optionnel)
-     * @return {float} intérêts cumulés de la période p1 à p2
-     */
-    public static float cumulInt(float K0, int n, float t, int p1, int p2, int dec) {
-        if (t == 0) {
-            return  0;
-        }
-        
-        float sumi = 0;
-        float m = Hypo.vpm(K0, n, t, dec);
-        
-        while (p1 <= p2) {
-            sumi = sumi + (m - Hypo.princPer(K0, n, t, p1, dec));
-            p1++;
-        }
-        
-        return arrondi(sumi, dec);
-        
-    }
-
-    public static float intTotaux(float K0, float m, float n, int dec) {
-        if (K0 == 0 || m == 0 || n == 0) {
-            return 0;
-        }
-        return arrondi((m * n) - K0, dec);
-    }
     
 }
