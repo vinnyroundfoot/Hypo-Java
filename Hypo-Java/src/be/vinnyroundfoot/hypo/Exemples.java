@@ -15,6 +15,8 @@ public class Exemples {
     
     
     public static void main(String [] args) {
+        
+        /*
         float r = Hypo.convTx(0.01f, 1, 12, 6);
         System.out.println(r);
         
@@ -41,6 +43,13 @@ public class Exemples {
 
         r = Hypo.cumulInt(100000.0f, 240, 0.003274f, 1, 12, 2);
         System.out.println(r);        
+        */
+        
+        for (float i = .0001f; i<.003274f; i=i+.0001f) {
+            System.out.println(Hypo.arrondi(i, 6));
+        }
+        
+        
         
         
     }

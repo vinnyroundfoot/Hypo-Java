@@ -180,7 +180,6 @@ public class Hypo {
         
     }
     
-    
     /**
      * Calcul de l'intérêt (ipn) de la période p
      * d'un emprunt K0 souscrit pour n périodes à un taux t
@@ -244,5 +243,85 @@ public class Hypo {
         }
         return arrondi((m * n) - K0, dec);
     }
+
     
+    /**
+     * CalCul de la valeur actuelle d'une suite de placements pendant n périodes
+     * à un taux t
+     *
+     *              1 - (1 + t)^-n
+     *   K0 =  m * ----------------
+     *                   i
+     *
+     * @param m {float} mensualité
+     * @param n {number} nombre de périodes
+     * @param t {float}  taux d'intérêt pour la période
+     * @param dec {number} dec nombre de décimales dans le résultat (optionnel)
+     * @return {float} valeur actuelle
+    */
+    
+    public static float VA(float m, float n, float t, int dec) {
+        if (t == 0) {
+            return arrondi(m * n, dec);
+        }
+        float Kzero = new Double (m * (1 - Math.pow(new Double(1 + t), new Double(-n))) / t).floatValue();
+        
+        return arrondi(Kzero, dec);
+    } 
+
+
+
+    /**
+     * Calcul de la valeur acquise d'une suite de placements pendant n périodes
+     * à un taux t (intérêts composés)
+     *
+     *               (1 +t )^n -1
+     *   Kn = m *  -----------------
+     *                      t
+     *
+     * @param m {float} mensualité
+     * @param n {number} nombre de périodes
+     * @param t {float} taux d'intérêt pour la période
+     * @param dec {number} nombre de décimales dans le résultat (optionnel)
+     * @return {float} valeur acquise
+    */
+
+    public static float VC (float m, float n, float t, int dec) {
+        if (n == 0) {
+            return m;
+        }
+        
+        if (t == 0) {
+            return arrondi(m * n, dec);
+        }
+        
+        float Kn = new Double (m * ( Math.pow(new Double(1 + t), new Double(n)) - 1) / t).floatValue(); 
+        return arrondi(Kn, dec);
+    }
+    
+    /**
+     * Calcul de la valeur acquise d'un capital K placé pendant n périodes
+     * à un taux t (intérêts composés)
+     *
+     *   Kn = K0 * (1 + t)^n
+     *
+     * @param K0  {number} K0 capital de départ
+     * @param n   {number} n  nombre de périodes
+     * @param t   {float} t taux d'intérêt pour la période
+     * @param dec {number} dec nombre de décimales dans le résultat (optionnel)
+     * @return {float} valeur acquise
+    */
+    
+    public static float VC_K (float K0, float n, float t, int dec) {
+        if (t == 0 || n == 0) {
+            return K0;
+        }
+        
+        float K = new Double (K0 * ( Math.pow(new Double(1 + t), new Double(n)) / t)).floatValue();
+        
+        return arrondi(K, dec);
+    };
+  
+    
+
 }
