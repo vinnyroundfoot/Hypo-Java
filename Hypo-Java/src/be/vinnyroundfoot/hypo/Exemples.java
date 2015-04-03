@@ -51,6 +51,7 @@ public class Exemples {
         
         
         
+        System.out.println(r);          
         
     }
     

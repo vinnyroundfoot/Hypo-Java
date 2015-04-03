@@ -12,6 +12,8 @@ package be.vinnyroundfoot.hypo;
  */
 public class Hypo {
 
+    
+
     public static float arrondi(float m, int dec) {
         float arr = new Double(Math.pow(10.0, dec+0.0)).floatValue();
 
@@ -19,7 +21,7 @@ public class Hypo {
         long m2 = new Double(m).longValue();
         double m3 = (m2 +0.0)/ new Float(arr).longValue();
         return new Double(m3).floatValue();
-       
+        
     }
 
     
@@ -64,7 +66,7 @@ public class Hypo {
     public static float vpm (float K0, int n, float t, int dec ) {
       
         if (t == 0) {
-            return arrondi(K0 / n, 2);
+            return arrondi(K0 / n,2);
         }
         
         float num = K0 * t;
